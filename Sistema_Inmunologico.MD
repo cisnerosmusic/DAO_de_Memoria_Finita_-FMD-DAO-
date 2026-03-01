@@ -14,7 +14,7 @@
 
 ---
 
-# Capa 1 — Para no especialistas
+# Capa 1 - Para no especialistas
 
 ## ¿Qué es el Sistema Inmunológico de una DAO?
 
