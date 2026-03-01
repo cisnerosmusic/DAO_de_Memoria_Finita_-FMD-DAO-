@@ -921,7 +921,7 @@ El modelo es paramétrico. Puedes ajustar λ según la naturaleza de tu DAO:
 
 ## Reflexión final: ¿Por qué esto importa?
 
-En la mayoría de sistemas de gobernanza —desde empresas hasta Estados— la autoridad se acumula sin fricción. Quien llega primero, quien grita más fuerte, quien tiene más capital, **congela su poder**. El resultado inevitable es la rigidez, la captura, el colapso.
+En la mayoría de sistemas de gobernanza (desde empresas hasta Estados) la autoridad se acumula sin fricción. Quien llega primero, quien grita más fuerte, quien tiene más capital, **congela su poder**. El resultado inevitable es la rigidez, la captura, el colapso.
 
 La FMD-DAO propone algo radicalmente distinto: **la autoridad como flujo, no como propiedad**. Un experto no "tiene" reputación, la **mantiene activamente** mediante contribución continua. Es termodinámica aplicada a la gobernanza: todo sistema vivo necesita disipar entropía para mantenerse lejos del equilibrio.
 
