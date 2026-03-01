@@ -1,0 +1,87 @@
+{
+  "name": "fmd-dao",
+  "version": "0.2.0",
+  "description": "DAO de Memoria Finita — Blueprint operativo basado en el Valle de Resiliencia",
+  "author": "Ernesto Cisneros Cino",
+  "license": "MIT",
+  "homepage": "https://github.com/cisnerosmusic/DAO_de_Memoria_Finita_-FMD-DAO-",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cisnerosmusic/DAO_de_Memoria_Finita_-FMD-DAO-.git"
+  },
+  "keywords": [
+    "dao",
+    "governance",
+    "solidity",
+    "resilience",
+    "memory",
+    "decay",
+    "bicameral"
+  ],
+  "engines": {
+    "node": ">=20.0.0",
+    "npm":  ">=10.0.0"
+  },
+
+  "scripts": {
+    "compile":        "hardhat compile",
+    "test":           "hardhat test",
+    "test:watch":     "hardhat test --watch",
+    "test:oracle":    "hardhat test --grep 'Oracle'",
+    "test:core":      "hardhat test --grep 'FMDDAOCore|GovernanceParams|ReputationModule'",
+    "test:human":     "hardhat test --grep 'IdeologicalOscillator|ProofOfUnderstanding|CoopetitionEngine'",
+    "test:integration": "hardhat test --grep 'Ciclo completo'",
+    "coverage":       "hardhat coverage",
+    "gas":            "REPORT_GAS=true hardhat test",
+    "node":           "hardhat node",
+    "clean":          "hardhat clean",
+
+    "deploy:local":           "hardhat run scripts/deploy/00_deploy_all.ts --network localhost",
+    "deploy:arbitrum-sepolia":"hardhat run scripts/deploy/00_deploy_all.ts --network arbitrumSepolia",
+    "deploy:optimism-sepolia":"hardhat run scripts/deploy/00_deploy_all.ts --network optimismSepolia",
+    "deploy:arbitrum":        "hardhat run scripts/deploy/00_deploy_all.ts --network arbitrum",
+
+    "verify:arbitrum":        "hardhat run scripts/deploy/01_verify_all.ts --network arbitrum",
+    "verify:arbitrum-sepolia":"hardhat run scripts/deploy/01_verify_all.ts --network arbitrumSepolia",
+
+    "simulate":       "python simulation/fmd_dao_sim.py",
+
+    "lint":           "solhint 'contracts/**/*.sol'",
+    "lint:fix":       "solhint 'contracts/**/*.sol' --fix",
+    "format":         "prettier --write 'contracts/**/*.sol' 'test/**/*.ts' 'scripts/**/*.ts'",
+    "format:check":   "prettier --check 'contracts/**/*.sol' 'test/**/*.ts' 'scripts/**/*.ts'",
+
+    "typecheck":      "tsc --noEmit",
+    "ci":             "npm run compile && npm run lint && npm run typecheck && npm run test && npm run coverage"
+  },
+
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.2"
+  },
+
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox":         "^4.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.10",
+    "@nomicfoundation/hardhat-verify":          "^2.0.8",
+    "@nomicfoundation/hardhat-ethers":          "^3.0.6",
+    "@nomicfoundation/hardhat-chai-matchers":   "^2.0.6",
+
+    "hardhat":           "^2.22.2",
+    "hardhat-gas-reporter": "^1.0.10",
+    "solidity-coverage": "^0.8.12",
+    "solhint":           "^4.5.4",
+
+    "ethers":            "^6.11.1",
+    "chai":              "^4.4.1",
+
+    "typescript":        "^5.4.5",
+    "ts-node":           "^10.9.2",
+    "@types/node":       "^20.12.7",
+    "@types/chai":       "^4.3.14",
+    "@types/mocha":      "^10.0.6",
+
+    "dotenv":            "^16.4.5",
+    "prettier":          "^3.2.5",
+    "prettier-plugin-solidity": "^1.3.1"
+  }
+}
