@@ -1,0 +1,325 @@
+# FMD-DAO · Subgraph Schema
+# The Graph Protocol — Indexación de eventos on-chain
+# Autor: Ernesto Cisneros Cino
+#
+# Entidades indexadas:
+#   Core:       Proposal, Vote, RitualRecord, Expert
+#   Immune:     InflammationEvent, ThreatSnapshot
+#   Oracle:     OracleProvider, OracleDataEvent, DisputeRecord
+#   HumanLayer: ReputationEvent, IdeologicalVote, Badge
+#   System:     ResilienceSnapshot, CycleRecord
+
+# ─── CORE ────────────────────────────────────────────────────────────────────
+
+type Proposal @entity {
+  id:               ID!                    # proposalId como string
+  proposer:         Bytes!                 # address
+  title:            String!
+  descriptionHash:  String!                # IPFS hash
+  proposalType:     String!                # STANDARD | CONSTITUTIONAL | EMERGENCY
+  status:           String!                # PENDING | C2_APPROVED | C1_APPROVED | EXECUTED | REJECTED | CANCELLED | EXPIRED
+  createdAt:        BigInt!
+  escalatedAt:      BigInt
+  approvedAt:       BigInt
+  executedAt:       BigInt
+  cycle:            BigInt!
+  c2VotesFor:       BigInt!
+  c2VotesAgainst:   BigInt!
+  c1VotesFor:       BigInt!
+  c1VotesAgainst:   BigInt!
+  c2Votes:          [C2Vote!]!             @derivedFrom(field: "proposal")
+  c1Votes:          [C1Vote!]!             @derivedFrom(field: "proposal")
+  executionSuccess: Boolean
+}
+
+type C2Vote @entity {
+  id:         ID!                          # proposalId-voter
+  proposal:   Proposal!
+  voter:      Bytes!
+  inFavor:    Boolean!
+  timestamp:  BigInt!
+  cycle:      BigInt!
+}
+
+type C1Vote @entity {
+  id:         ID!                          # proposalId-voter
+  proposal:   Proposal!
+  voter:      Bytes!
+  inFavor:    Boolean!
+  reputation: BigInt!                      # rep del experto en el momento del voto
+  timestamp:  BigInt!
+  cycle:      BigInt!
+}
+
+type Expert @entity {
+  id:             ID!                      # address
+  active:         Boolean!
+  rawRep:         BigInt!
+  contributions:  BigInt!
+  addedAt:        BigInt!
+  removedAt:      BigInt
+  addedCycle:     BigInt!
+  removedCycle:   BigInt
+  boostHistory:   [BoostRecord!]!          @derivedFrom(field: "expert")
+  repSnapshots:   [ReputationSnapshot!]!   @derivedFrom(field: "expert")
+}
+
+type BoostRecord @entity {
+  id:         ID!                          # txHash-logIndex
+  expert:     Expert!
+  amount:     BigInt!
+  reason:     String!
+  timestamp:  BigInt!
+  cycle:      BigInt!
+}
+
+type ReputationSnapshot @entity {
+  id:         ID!                          # expert-cycle
+  expert:     Expert!
+  repBps:     BigInt!                      # reputación efectiva al momento del snapshot
+  cycle:      BigInt!
+  timestamp:  BigInt!
+}
+
+type RitualRecord @entity {
+  id:              ID!                     # cycleId
+  cycleId:         BigInt!
+  executedAt:      BigInt!
+  expertsRemoved:  BigInt!
+  expertsRotated:  BigInt!
+  resilienceR:     BigInt!                 # R × 1000
+  inValley:        Boolean!
+}
+
+# ─── RESILIENCE ───────────────────────────────────────────────────────────────
+
+type ResilienceSnapshot @entity {
+  id:         ID!                          # cycle-timestamp
+  cycle:      BigInt!
+  tauDAO:     BigInt!
+  omega:      BigInt!                      # × 1000
+  R:          BigInt!                      # tau × omega / 1000
+  inValley:   Boolean!
+  timestamp:  BigInt!
+  giniC1:     BigInt!                      # Gini reputacional C1 en BPS
+}
+
+type CycleRecord @entity {
+  id:              ID!                     # cycleId
+  cycleId:         BigInt!
+  startedAt:       BigInt!
+  endedAt:         BigInt
+  proposalsTotal:  BigInt!
+  proposalsApproved: BigInt!
+  proposalsRejected: BigInt!
+  resilienceR:     BigInt!
+  inValley:        Boolean!
+  ritualExecuted:  Boolean!
+}
+
+# ─── IMMUNE SYSTEM ────────────────────────────────────────────────────────────
+
+type InflammationEvent @entity {
+  id:               ID!                    # txHash-logIndex
+  threatScore:      BigInt!
+  severity:         String!                # VERDE | AMARILLO | NARANJA | ROJO
+  velocityRegime:   String!                # LOGARÍTMICA | LINEAL | EXPONENCIAL
+  c1WeightBps:      BigInt!
+  c2WeightBps:      BigInt!
+  oracleWeightBps:  BigInt!
+  startedAt:        BigInt!
+  resolvedAt:       BigInt
+  durationSeconds:  BigInt
+  cycle:            BigInt!
+}
+
+type ThreatSnapshot @entity {
+  id:           ID!                        # cycle-timestamp
+  cycle:        BigInt!
+  threatScore:  BigInt!
+  severity:     String!
+  velocity:     BigInt!                    # dS/dt × 100
+  quorumBps:    BigInt!                    # quórum ajustado durante este snapshot
+  timestamp:    BigInt!
+}
+
+type CircuitBreakerEvent @entity {
+  id:              ID!
+  daysSinceStart:  BigInt!
+  newQuorumBps:    BigInt!
+  newTimelockDays: BigInt!
+  timestamp:       BigInt!
+}
+
+# ─── ORACLE LAYER ─────────────────────────────────────────────────────────────
+
+type OracleProvider @entity {
+  id:             ID!                      # providerId (bytes32 como hex)
+  name:           String!
+  endpoint:       Bytes!
+  score:          BigInt!
+  status:         String!                  # INACTIVE | ACTIVE | STANDBY | SUSPENDED | ELIMINATED
+  lastActiveAt:   BigInt
+  cyclesWaiting:  BigInt!
+  totalConfirmed: BigInt!
+  totalRefuted:   BigInt!
+  totalStale:     BigInt!
+  scoreHistory:   [OracleScoreEvent!]!     @derivedFrom(field: "provider")
+  rotations:      [RotationRecord!]!       @derivedFrom(field: "activeProvider")
+  disputes:       [DisputeRecord!]!        @derivedFrom(field: "provider")
+}
+
+type OracleScoreEvent @entity {
+  id:         ID!                          # txHash-logIndex
+  provider:   OracleProvider!
+  scoreBefore: BigInt!
+  scoreAfter:  BigInt!
+  reason:     String!
+  timestamp:  BigInt!
+}
+
+type RotationRecord @entity {
+  id:              ID!                     # cycleId
+  cycleId:         BigInt!
+  activeProvider:  OracleProvider!
+  standbyProvider: OracleProvider!
+  timestamp:       BigInt!
+}
+
+type OracleDataEvent @entity {
+  id:           ID!                        # txHash-logIndex
+  dataKey:      Bytes!
+  providerId:   Bytes!
+  status:       String!                    # FRESH | STALE | DISPUTED | FROZEN
+  timestamp:    BigInt!
+}
+
+type DisputeRecord @entity {
+  id:                ID!                   # disputeId
+  dataKey:           Bytes!
+  provider:          OracleProvider!
+  disputant:         Bytes!
+  openedAt:          BigInt!
+  resolvedAt:        BigInt
+  outcome:           String                # CONFIRMED | REFUTED | DRAW | EXPIRED
+  confirmVotes:      BigInt!
+  refuteVotes:       BigInt!
+  depositReturned:   Boolean!
+  cycle:             BigInt!
+  votes:             [DisputeVote!]!       @derivedFrom(field: "dispute")
+}
+
+type DisputeVote @entity {
+  id:        ID!                           # disputeId-voter
+  dispute:   DisputeRecord!
+  voter:     Bytes!
+  vote:      String!                       # CONFIRM | REFUTE
+  rationale: String!
+  timestamp: BigInt!
+}
+
+type StaleEvent @entity {
+  id:            ID!                       # txHash-logIndex
+  dataKey:       Bytes!
+  providerId:    Bytes!
+  staleDuration: BigInt!
+  standbyTookControl: Boolean!
+  timestamp:     BigInt!
+}
+
+# ─── HUMAN LAYER ──────────────────────────────────────────────────────────────
+
+type MemberProfile @entity {
+  id:                 ID!                  # address
+  repPropuesta:       BigInt!
+  repValidacion:      BigInt!
+  repComprension:     BigInt!
+  repOscilacion:      BigInt!
+  repColaboracion:    BigInt!
+  repAggregated:      BigInt!
+  credits:            BigInt!
+  rigidityBps:        BigInt!
+  voteWeightBps:      BigInt!
+  badges:             [Badge!]!            @derivedFrom(field: "owner")
+  repEvents:          [RepDimensionEvent!]! @derivedFrom(field: "member")
+  ideologicalVotes:   [IdeologicalVote!]!  @derivedFrom(field: "member")
+  proofRecords:       [ProofRecord!]!      @derivedFrom(field: "member")
+}
+
+type RepDimensionEvent @entity {
+  id:          ID!                         # txHash-logIndex
+  member:      MemberProfile!
+  dimension:   String!                     # PROPUESTA | VALIDACION | COMPRENSION | OSCILACION | COLABORACION
+  delta:       BigInt!                     # positivo = boost, negativo = penalización
+  description: String!
+  timestamp:   BigInt!
+  cycle:       BigInt!
+}
+
+type IdeologicalVote @entity {
+  id:             ID!                      # proposalId-member
+  member:         MemberProfile!
+  proposalId:     BigInt!
+  position:       Int!                     # 0 = contra, 1 = favor
+  hasJustification: Boolean!
+  rigidityAfter:  BigInt!                  # rigidez recalculada tras el voto
+  weightAfter:    BigInt!                  # peso ajustado resultante
+  cycle:          BigInt!
+  timestamp:      BigInt!
+}
+
+type ProofRecord @entity {
+  id:          ID!                         # proposalId-member
+  member:      MemberProfile!
+  proposalId:  BigInt!
+  answersHash: Bytes!
+  result:      String!                     # OMITTED | INVALID | VALID
+  weightMultiplier: BigInt!                # BPS: 4000 | 6000 | 10000
+  timestamp:   BigInt!
+}
+
+type Badge @entity {
+  id:              ID!                     # tokenId
+  owner:           MemberProfile!
+  badgeType:       String!                 # PROOF_SEEKER_BRONZE | ... | BRIDGE_BUILDER
+  achievement:     String!                 # descripción específica del logro
+  awardedAt:       BigInt!
+}
+
+type CreditEvent @entity {
+  id:        ID!                           # txHash-logIndex
+  member:    Bytes!
+  amount:    BigInt!
+  reason:    String!
+  timestamp: BigInt!
+}
+
+# ─── GOVERNANCE PARAMS ────────────────────────────────────────────────────────
+
+type ParamChange @entity {
+  id:            ID!                       # txHash-logIndex
+  paramKey:      Bytes!
+  description:   String!
+  oldValue:      BigInt!
+  newValue:      BigInt!
+  proposedAt:    BigInt!
+  executedAt:    BigInt
+  cancelled:     Boolean!
+  timelockDays:  BigInt!
+}
+
+# ─── SYSTEM AGGREGATE ────────────────────────────────────────────────────────
+
+type SystemSummary @entity {
+  id:                ID!                   # "global" — singleton
+  totalProposals:    BigInt!
+  totalExperts:      BigInt!
+  activeExperts:     BigInt!
+  totalRituals:      BigInt!
+  totalDisputes:     BigInt!
+  totalInflammations: BigInt!
+  currentCycle:      BigInt!
+  lastRitualAt:      BigInt!
+  lastResilienceR:   BigInt!
+  lastGiniC1:        BigInt!
+}
