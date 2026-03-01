@@ -7,10 +7,10 @@
 ## Índice
 
 - [El problema que nadie quiere admitir](#el-problema-que-nadie-quiere-admitir)
-- [Capa 0 — Fundamentos conceptuales e históricos](#capa-0--fundamentos-conceptuales-e-históricos)
-- [Capa 1 — Para no especialistas](#capa-1--para-no-especialistas)
-- [Capa 2 — Para especialistas](#capa-2--para-especialistas)
-- [Capa 3 — Implementación en Solidity](#capa-3--implementación-en-solidity)
+- [Capa 0 - Fundamentos conceptuales e históricos](#capa-0--fundamentos-conceptuales-e-históricos)
+- [Capa 1 - Para no especialistas](#capa-1--para-no-especialistas)
+- [Capa 2 - Para especialistas](#capa-2--para-especialistas)
+- [Capa 3 - Implementación en Solidity](#capa-3--implementación-en-solidity)
 - [Relación con otros módulos](#relación-con-otros-módulos)
 - [Licencia](#licencia)
 
@@ -20,18 +20,18 @@
 
 La mayoría de los sistemas de gobernanza descentralizada fallan por la misma razón que fallan los parlamentos, las asambleas de vecinos y los equipos de trabajo: **no fueron diseñados para humanos reales**.
 
-Fueron diseñados para humanos ideales — racionales, desinteresados, capaces de separar su ego de sus opiniones, dispuestos a cambiar de posición ante evidencia nueva.
+Fueron diseñados para humanos ideales, racionales, desinteresados, capaces de separar su ego de sus opiniones, dispuestos a cambiar de posición ante evidencia nueva.
 
 Esos humanos no existen.
 
-Los humanos reales tienen ego, sesgos, tribalismo, aversión a la pérdida y tendencia a la polarización. El HumanLayer no intenta corregir esos defectos. Los acepta como **constantes del sistema** y diseña la arquitectura para que produzcan resultados útiles a pesar de ellos — o gracias a ellos.
+Los humanos reales tienen ego, sesgos, tribalismo, aversión a la pérdida y tendencia a la polarización. El HumanLayer no intenta corregir esos defectos. Los acepta como **constantes del sistema** y diseña la arquitectura para que produzcan resultados útiles a pesar de ellos o gracias a ellos.
 
 > No le pedimos a los ríos que fluyan cuesta arriba.
 > Construimos canales.
 
 ---
 
-# Capa 0 — Fundamentos conceptuales e históricos
+# Capa 0 - Fundamentos conceptuales e históricos
 
 ## 1. La coopetición: competencia y colaboración como unidad
 
@@ -39,7 +39,7 @@ La dicotomía competencia/colaboración es falsa. En los sistemas más resilient
 
 ### Evidencia evolutiva
 
-El biólogo Lynn Margulis demostró en los años 60 que las mitocondrias — el motor de todas las células eucariotas — son antiguas bacterias que en lugar de ser destruidas por sus huéspedes, establecieron una alianza. La vida compleja no emergió de la competencia pura ni de la cooperación pura, sino de su tensión productiva.
+El biólogo Lynn Margulis demostró en los años 60 que las mitocondrias (el motor de todas las células eucariotas) son antiguas bacterias que en lugar de ser destruidas por sus huéspedes, establecieron una alianza. La vida compleja no emergió de la competencia pura ni de la cooperación pura, sino de su tensión productiva.
 
 Robert Axelrod, en su experimento clásico *The Evolution of Cooperation* (1984), demostró mediante torneos de teoría de juegos que la estrategia más exitosa a largo plazo no es la traición ni la cooperación ciega, sino **Tit-for-Tat**: cooperar primero, castigar la traición inmediatamente, perdonar y volver a cooperar. La reciprocidad iterable supera a la defección oportunista.
 
@@ -51,7 +51,7 @@ El sistema de patentes, paradójicamente, es un mecanismo de coopetición: oblig
 
 ### Aplicación al HumanLayer
 
-La FMD-DAO no pide a sus miembros que renuncien a la ambición o al interés propio. Les ofrece un tablero donde **la forma más eficiente de ganar individualmente requiere contribuir al bien colectivo**. La renuncia no es moral — es estratégica.
+La FMD-DAO no pide a sus miembros que renuncien a la ambición o al interés propio. Les ofrece un tablero donde **la forma más eficiente de ganar individualmente requiere contribuir al bien colectivo**. La renuncia no es moral, es estratégica.
 
 ---
 
@@ -67,9 +67,9 @@ Cass Sunstein en *Going to Extremes* (2009) estudió experimentalmente cómo gru
 
 ### La solución histórica: fricción institucional
 
-El sistema adversarial del common law anglosajón no confía en que jueces o jurados sean sabios — confía en que la **fricción estructurada entre dos posiciones opuestas** produzca algo más cercano a la verdad que cualquiera de las dos por separado.
+El sistema adversarial del common law anglosajón no confía en que jueces o jurados sean sabios, confía en que la **fricción estructurada entre dos posiciones opuestas** produzca algo más cercano a la verdad que cualquiera de las dos por separado.
 
-El Senado Romano clásico (no el tardío) tenía un mecanismo notable: antes de votar una declaración de guerra, se escuchaba obligatoriamente al *advocatus pacis* — un orador designado para argumentar la posición contraria, independientemente de sus convicciones personales. No era virtud cívica. Era arquitectura.
+El Senado Romano clásico (no el tardío) tenía un mecanismo notable: antes de votar una declaración de guerra, se escuchaba obligatoriamente al *advocatus pacis*  un orador designado para argumentar la posición contraria, independientemente de sus convicciones personales. No era virtud cívica. Era arquitectura.
 
 La estructura de la ciencia peer-review, con toda sus imperfecciones, opera bajo el mismo principio: antes de que una afirmación sea aceptada, debe sobrevivir el escrutinio de quienes tienen incentivos para refutarla.
 
@@ -89,13 +89,13 @@ El HumanLayer introduce el mismo mecanismo en gobernanza: **el coste del estanca
 
 Leonid Rozenblit y Frank Keil (2002) describieron el *Illusion of Explanatory Depth*: las personas creen entender cómo funcionan objetos complejos (un inodoro, una cremallera, una política fiscal) mucho mejor de lo que realmente los entienden. Cuando se les pide que expliquen el mecanismo en detalle, su confianza colapsa.
 
-Lo mismo ocurre con posiciones políticas e ideológicas. Philip Fernbach et al. (2013) demostraron en *Political Extremism is Supported by an Illusion of Understanding* que pedir a personas con posiciones extremas que **expliquen el mecanismo** de las políticas que apoyan — no que las justifiquen moralmente, sino que expliquen cómo funcionan — reduce significativamente su extremismo y aumenta su apertura a posiciones alternativas.
+Lo mismo ocurre con posiciones políticas e ideológicas. Philip Fernbach et al. (2013) demostraron en *Political Extremism is Supported by an Illusion of Understanding* que pedir a personas con posiciones extremas que **expliquen el mecanismo** de las políticas que apoyan, no que las justifiquen moralmente, sino que expliquen cómo funcionan, reduce significativamente su extremismo y aumenta su apertura a posiciones alternativas.
 
 La comprensión mecanística es moderadora. La justificación moral es polarizadora.
 
 ### Implicación de diseño
 
-El test de comprensión del HumanLayer no pregunta "¿estás de acuerdo con la posición contraria?" — eso sería pedir virtud. Pregunta "¿puedes explicar cómo funciona el argumento contrario?" — eso es verificar comprensión.
+El test de comprensión del HumanLayer no pregunta "¿estás de acuerdo con la posición contraria?", eso sería pedir virtud. Pregunta "¿puedes explicar cómo funciona el argumento contrario?", es verificar comprensión.
 
 La diferencia es crucial. No se juzga la posición. Se verifica que el votante no opera desde ignorancia.
 
@@ -107,23 +107,23 @@ La diferencia es crucial. No se juzga la posición. Se verifica que el votante n
 
 Dan Ariely en *Predictably Irrational* (2008) y Uri Gneezy en múltiples estudios sobre motivación documentan un fenómeno contraintuitivo: en muchos contextos, el reconocimiento social es más motivador que la compensación económica. Los voluntarios de Wikipedia escriben más contenido de calidad que muchos trabajadores pagados. Los donantes anónimos donan menos que los públicos.
 
-El ego no es un defecto a corregir — es un recurso energético a canalizar.
+El ego no es un defecto a corregir, es un recurso energético a canalizar.
 
 ### El problema del reconocimiento vago
 
 Sin embargo, el reconocimiento genérico ("buen contribuidor") es menos motivador que el específico y verificable. Teresa Amabile en *The Progress Principle* (2011) demuestra que la percepción de **progreso concreto y medible** es el principal motor de motivación intrínseca en trabajo cognitivo.
 
-El HumanLayer diseña reputación que es visible, granular, y atribuible — no "participó mucho" sino "su propuesta redujo el tiempo de resolución de disputas en 34%".
+El HumanLayer diseña reputación que es visible, granular, y atribuible, no "participó mucho" sino "su propuesta redujo el tiempo de resolución de disputas en 34%".
 
 ---
 
-# Capa 1 — Para no especialistas
+# Capa 1 - Para no especialistas
 
 ## ¿Qué es el HumanLayer?
 
-Es la capa del sistema que reconoce que una DAO no la gobiernan contratos inteligentes — la gobiernan personas. Y las personas tienen ego, opiniones fijas, tendencia a formar bandos y resistencia a cambiar de posición.
+Es la capa del sistema que reconoce que una DAO no la gobiernan contratos inteligentes, la gobiernan personas. Y las personas tienen ego, opiniones fijas, tendencia a formar bandos y resistencia a cambiar de posición.
 
-El HumanLayer no pide a las personas que sean mejores. Diseña el sistema para que sus características humanas — incluso las problemáticas — produzcan resultados útiles.
+El HumanLayer no pide a las personas que sean mejores. Diseña el sistema para que sus características humanas, incluso las problemáticas, produzcan resultados útiles.
 
 ## Los tres problemas que resuelve
 
@@ -131,17 +131,17 @@ El HumanLayer no pide a las personas que sean mejores. Diseña el sistema para q
 
 En cualquier grupo, con el tiempo las posiciones se vuelven más extremas. Los que piensan parecido se juntan, se refuerzan mutuamente y terminan incapaces de comunicarse con el grupo opuesto.
 
-**Solución del HumanLayer:** antes de votar una propuesta, el sistema pide que demuestres que entiendes el argumento contrario. No que estés de acuerdo — solo que puedas explicarlo. Si no puedes, tu voto pesa menos.
+**Solución del HumanLayer:** antes de votar una propuesta, el sistema pide que demuestres que entiendes el argumento contrario. No que estés de acuerdo, solo que puedas explicarlo. Si no puedes, tu voto pesa menos.
 
 ### Problema 2: El estancamiento ideológico
 
-Una persona que siempre vota igual, en todas las propuestas, en todos los ciclos, no está deliberando — está aplicando una etiqueta automáticamente. Eso es costoso para el sistema porque congela posibilidades y bloquea síntesis.
+Una persona que siempre vota igual, en todas las propuestas, en todos los ciclos, no está deliberando, está aplicando una etiqueta automáticamente. Eso es costoso para el sistema porque congela posibilidades y bloquea síntesis.
 
-**Solución del HumanLayer:** quedarse fijo tiene coste. El peso de tu voto decae si tu historial muestra rigidez absoluta. No pierdes el voto — pierdes influencia gradualmente, como la reputación decae si no contribuyes.
+**Solución del HumanLayer:** quedarse fijo tiene coste. El peso de tu voto decae si tu historial muestra rigidez absoluta. No pierdes el voto, pierdes influencia gradualmente, como la reputación decae si no contribuyes.
 
 ### Problema 3: El ego sin dirección
 
-El ego existe. Ignorarlo no lo elimina — solo lo desplaza hacia comportamientos menos visibles y más dañinos (política de pasillos, capturas silenciosas).
+El ego existe. Ignorarlo no lo elimina, solo lo desplaza hacia comportamientos menos visibles y más dañinos (política de pasillos, capturas silenciosas).
 
 **Solución del HumanLayer:** el ego tiene un canal oficial. La reputación es pública, granular y específica. Si quieres reconocimiento, la forma más eficiente de obtenerlo es contribuir de maneras que el sistema pueda medir y mostrar.
 
@@ -149,7 +149,7 @@ El ego existe. Ignorarlo no lo elimina — solo lo desplaza hacia comportamiento
 
 ## La renuncia estratégica
 
-El sistema pide renuncias — pero no morales. Pide renuncias estratégicas: ceder algo pequeño ahora para ganar algo mayor después.
+El sistema pide renuncias, pero no morales. Pide renuncias estratégicas: ceder algo pequeño ahora para ganar algo mayor después.
 
 Un miembro que siempre vota en un solo sentido cede influencia gradualmente. Un miembro que demuestra comprensión del argumento contrario gana peso en sus votos. Un miembro que propone algo que funciona acumula reputación visible.
 
@@ -157,7 +157,7 @@ El sistema convierte la competencia y la colaboración en aliadas, no en enemiga
 
 ---
 
-# Capa 2 — Para especialistas
+# Capa 2 - Para especialistas
 
 ## Arquitectura del HumanLayer
 
@@ -170,7 +170,7 @@ El HumanLayer opera sobre cuatro mecanismos interdependientes:
 4. Coopetición Estructurada →  competencia que requiere colaboración para ganar
 ```
 
-Ninguno de estos mecanismos modifica los contratos del Sistema Inmune, la Memoria Finita o el Ruido Estabilizador. Los **usa** — lee sus datos, responde a sus estados — pero no escribe en ellos.
+Ninguno de estos mecanismos modifica los contratos del Sistema Inmune, la Memoria Finita o el Ruido Estabilizador. Los **usa**, lee sus datos, responde a sus estados, pero no escribe en ellos.
 
 ---
 
@@ -267,7 +267,7 @@ Antes de votar en propuestas clasificadas como `TIPO_CONTROVERSIAL` (aquellas do
 
 ### Estructura del score reputacional
 
-La reputación en el HumanLayer no es un número único — es un **vector de dimensiones**:
+La reputación en el HumanLayer no es un número único, es un **vector de dimensiones**:
 
 ```txt
 REP(i) = {
@@ -305,7 +305,7 @@ COOPETITOR             — propuesta propia + contribución a propuesta ajena en
 BRIDGE_BUILDER         — propuesta aprobada con votos de ambas cámaras >70%
 ```
 
-Los badges son **Soulbound** (no transferibles). No tienen valor económico directo. Su valor es reputacional — y por eso funcionan.
+Los badges son **Soulbound** (no transferibles). No tienen valor económico directo. Su valor es reputacional, y por eso funcionan.
 
 ---
 
@@ -343,11 +343,11 @@ Votar con intensidad 3: cuesta 9 unidades
 Votar con intensidad 5: cuesta 25 unidades
 ```
 
-Esto no impide posiciones extremas — las hace costosas. El miembro puede mantener su posición, pero debe pagar por su intensidad.
+Esto no impide posiciones extremas, las hace costosas. El miembro puede mantener su posición, pero debe pagar por su intensidad.
 
 ---
 
-# Capa 3 — Implementación en Solidity
+# Capa 3 - Implementación en Solidity
 
 ```
 HumanLayer/
@@ -760,8 +760,7 @@ El HumanLayer no confía en la virtud de sus miembros.
 
 Confía en que un **tablero bien diseñado** convierte los defectos humanos en comportamientos útiles: el ego en contribución medible, la rigidez en coste evitable, la ignorancia del contrario en penalización calculada, la competencia en motor de colaboración.
 
-> No le pedimos a los ríos que fluyan cuesta arriba.
-> Construimos canales.
+
 
 ---
 
