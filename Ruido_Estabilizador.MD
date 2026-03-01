@@ -35,11 +35,11 @@ Cuando un sistema es perfectamente regular:
 
 Para que sea *estabilizador* y no *caótico*, el ruido debe cumplir:
 
-1. **Acotado** — variaciones dentro de un rango fijo máximo.
-2. **Sin sesgo** — el promedio de largo plazo no cambia.
-3. **Verificable** — la fuente de aleatoriedad es auditable (VRF o beacon).
-4. **No manipulable** — nadie puede predecir ni influir el resultado.
-5. **Transparente** — distribución y parámetros son públicos.
+1. **Acotado** - variaciones dentro de un rango fijo máximo.
+2. **Sin sesgo** - el promedio de largo plazo no cambia.
+3. **Verificable** - la fuente de aleatoriedad es auditable (VRF o beacon).
+4. **No manipulable** - nadie puede predecir ni influir el resultado.
+5. **Transparente** - distribución y parámetros son públicos.
 
 ---
 
@@ -96,7 +96,7 @@ El promedio se conserva. La explotabilidad temporal se reduce.
 
 ---
 
-### Ejemplo 1 — Variación de duración de ciclo (τ)
+### Ejemplo 1 - Variación de duración de ciclo (τ)
 
 ```
 Sin ruido:   tau = 90 días
@@ -112,7 +112,7 @@ Qué mejora: no existe una fecha exacta "perfecta" para coordinar ataques.
 
 ---
 
-### Ejemplo 2 — Modulación del quórum (Q)
+### Ejemplo 2 - Modulación del quórum (Q)
 
 ```
 Sin ruido:   Q = 60%
@@ -159,7 +159,7 @@ El valor promedio de resiliencia se conserva. La explotabilidad del calendario d
 
 ### Interpretación espectral
 
-Un sistema perfectamente periódico concentra su energía en picos de frecuencia estrechos — condición ideal para resonancia. Con ruido, esos picos se ensanchan, la energía se reparte y la amplitud máxima disminuye. En gobernanza: menos choques amplificados, menos ataques sincronizados.
+Un sistema perfectamente periódico concentra su energía en picos de frecuencia estrechos, condición ideal para resonancia. Con ruido, esos picos se ensanchan, la energía se reparte y la amplitud máxima disminuye. En gobernanza: menos choques amplificados, menos ataques sincronizados.
 
 ---
 
@@ -195,7 +195,7 @@ Propiedades:
 
 ---
 
-## Lo que es — y lo que no es
+## Lo que es - y lo que no es
 
 | Es | No es |
 |---|---|
